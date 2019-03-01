@@ -1072,6 +1072,7 @@ for(let i=0;i<d.length;i++)
     document.getElementsByClassName('desc1')[i].innerHTML=d[i].doctorListing[0].qualification;
     document.getElementsByClassName('desc')[i].innerHTML=d[i].doctorListing[0].specialization;
     document.getElementsByTagName('h6')[i].innerHTML=d[i].doctorListing[0].cost;
+    document.getElementsByClassName('h3')
 
     if(d[i].doctorListing[0].gender=="male")
     {
@@ -1083,4 +1084,33 @@ for(let i=0;i<d.length;i++)
 }
 
 
+function initMap()
+  {
+      var location ={lat: 28.459497 ,lng: 77.026634};
+      var map =new google.maps.Map(document.getElementById("map"),{
+          zoom: 11,
+          center: location
+      });
+ for(let i=0;i<d.length;i++)
+ {    
+ addMarker({lat: d[i].doctorListing[0].address[0].gpsCoordinates.gpsLatitude ,lng: d[i].doctorListing[0].address[0].gpsCoordinates.gpsLongitude});
+ 
+ 
+  function addMarker(coordinates)
+    {
+    var marker=new google.maps.Marker({
+          position: coordinates,
+          map: map
+      }) ;
+      var e=d[i].doctorListing[0].address[0].addressLineOne;
+      var infoWindow=new google.maps.InfoWindow({
+          content:e
+      });
+      marker.addListener('click',function()
+      {
+          infoWindow.open(map,marker);
+      })
+ }
+}
+}
 
